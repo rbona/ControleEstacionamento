@@ -1,0 +1,58 @@
+﻿@model ControleEstacionamento.Entidades.TabelaPreco
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TabelaPreco</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.inicioVigencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.inicioVigencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.finalVigencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.finalVigencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valorHoraInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valorHoraInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valorHoraAdicional)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valorHoraAdicional)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.handle }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
