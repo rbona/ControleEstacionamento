@@ -8,5 +8,10 @@ namespace ControleEstacionamento.DAL.Contexto
         public Banco() : base("ConnDB") { }
 
         public DbSet<TabelaPreco> TabelasPrecos { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
