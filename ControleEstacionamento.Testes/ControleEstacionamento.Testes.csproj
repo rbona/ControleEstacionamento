@@ -68,6 +68,7 @@
     <Compile Include="InclusaoTabelaPrecos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegrasNegocioTabelaPrecos.cs" />
+    <Compile Include="RegrasMovimentacaoVeiculos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

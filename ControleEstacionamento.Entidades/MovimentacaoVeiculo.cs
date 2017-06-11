@@ -19,7 +19,7 @@ namespace ControleEstacionamento.Entidades
         [Required(ErrorMessage = "Deve ser informada a placa do veículo.")]
         [Vazio(ErrorMessage = "Deve ser informada a placa do veículo.")]
         [Display(Name = "Placa")]
-        [RegularExpression(@"^[a-zA-Z]{3}\-\d{4}$",ErrorMessage ="A placa informada está fora do padrão. (Exemplo: AAA9999)")]
+        [RegularExpression(@"^[a-zA-Z]{3}[0-9]{4}$",ErrorMessage ="A placa informada está fora do padrão. (Exemplo: AAA9999)")]
         public string placa { get; set; }
 
         [Required(ErrorMessage = "Deve ser informado a data e hora de entrada.")]
@@ -32,7 +32,7 @@ namespace ControleEstacionamento.Entidades
         [Display(Name = "Saída Veículo")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}")]
-        public DateTime saída { get;set; }
+        public DateTime saida { get;set; }
 
         [Display(Name = "ID Tabela Preço")]
         [Column("tabelaPreco")]

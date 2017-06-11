@@ -12,7 +12,8 @@ namespace ControleEstacionamento
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*").Include("~/Scripts/globalize/globalize.js"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/globalize/globalize.js"));
 
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -29,6 +30,17 @@ namespace ControleEstacionamento
 
             bundles.Add(new ScriptBundle("~/bundles/validations_pt-br").Include(
                         "~/Scripts/jquery.validate.custom.pt-br*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+            //~/Scripts/Inputmask/dependencyLibs/inputmask.dependencyLib.js",  //if not using jquery
+            //"~/Scripts/jquery.inputmask.bundle.*",
+            "~/Scripts/inputmask/inputmask.js",
+            "~/Scripts/inputmask/jquery.inputmask.js",
+            "~/Scripts/inputmask/inputmask.extensions.js",
+            "~/Scripts/inputmask/inputmask.date.extensions.js",
+            //and other extensions you want to include
+            "~/Scripts/inputmask/inputmask.numeric.extensions.js"));
+
         }
     }
 }
