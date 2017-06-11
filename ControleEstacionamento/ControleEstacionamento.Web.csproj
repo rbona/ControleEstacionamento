@@ -153,11 +153,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MovimentacaoVeiculoController.cs" />
     <Compile Include="Controllers\TabelaPrecoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bind\DecimalModelBinder.cs" />
+    <Compile Include="Models\TabelaPrecosModelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +233,7 @@
     <Content Include="Views\TabelaPreco\Details.cshtml" />
     <Content Include="Views\TabelaPreco\Edit.cshtml" />
     <Content Include="Views\TabelaPreco\Index.cshtml" />
+    <Content Include="Views\MovimentacaoVeiculo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

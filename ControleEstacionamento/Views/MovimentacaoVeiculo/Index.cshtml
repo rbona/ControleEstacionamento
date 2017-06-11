@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Movimentação de Veículos";
+    bool faltaConfiguracao = ViewBag.FaltaConfiguracao;
+}
+
+<h2>Entrada e Saída de Veículos</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (!faltaConfiguracao)
+        {
+            <div class="form-group">
+                @Html.Label("Placa", htmlAttributes: new { @class = "control-label col-md-2" });
+                <div class="col-md-10">
+                    @Html.Editor( "numeroPlaca", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                &nbsp;
+                <button type="button" class="btn btn-default ce-botao-carregar form-control col-md11" onclick="CarregarFormConfirmacao();">Registrar</button>
+            </div>
+        }
+    </div>
+}

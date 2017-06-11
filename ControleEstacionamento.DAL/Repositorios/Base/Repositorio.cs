@@ -24,12 +24,12 @@ namespace Lavacao.DAL.Repositorios.Base
             return BuscarTodos().Where(filtro).AsQueryable();
         }
 
-        public TEntidade BuscarChave(params object[] chave)
+        public virtual TEntidade BuscarChave(params object[] chave)
         {
             return contexto.Set<TEntidade>().Find(chave);
         }
 
-        public IQueryable<TEntidade> BuscarTodos()
+        public virtual IQueryable<TEntidade> BuscarTodos()
         {
             return contexto.Set<TEntidade>();
         }
