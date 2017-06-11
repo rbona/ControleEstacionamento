@@ -41,16 +41,17 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dissmiss="modal" onclick="$('#registro').modal('hide');">Fechar</button>
+                <button type="button" class="btn btn-success" data-dissmiss="modal" onclick="GravarRegistro();">Gravar</button>
+                <button type="button" class="btn btn-default" data-dissmiss="modal" onclick="$('#registro').modal('hide');">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/inputmask")
     @Scripts.Render("~/bundles/validations_pt-br")
     <script type="text/javascript">
@@ -66,6 +67,23 @@
                 success: function (retorno) {
                     $("#conteudoRegistro").html(retorno);
                     $("#registro").modal("show");
+                }
+            });
+        };
+
+        function GravarRegistro() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Gravar", "MovimentacaoVeiculo")",
+                data: {
+                    "handle": $("#handle").val(),
+                    "idTabelaPreco": $("#idTabelaPreco").val(),
+                    "placa": $("#placa").val(),
+                    "saida": $("#saida").val(),
+                    "entrada": $("#entrada").val()
+                },
+                success: function (retorno) {
+                    $("#registro").modal("hide");
                 }
             });
         };

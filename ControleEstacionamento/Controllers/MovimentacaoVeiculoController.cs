@@ -13,6 +13,7 @@ namespace ControleEstacionamento.Controllers
     {
         private TabelaPrecosModelo tabePrecMode = new TabelaPrecosModelo();
         private TabelaPrecoRepositorio tabePrecRepo = new TabelaPrecoRepositorio();
+        private MovimentacaoVeiculoRepositorio moviVeicRepo = new MovimentacaoVeiculoRepositorio();
 
         [HttpGet]
         // GET: MovimentacaoVeiculo
@@ -45,6 +46,9 @@ namespace ControleEstacionamento.Controllers
             else if (moviVeic.idTabelaPreco <= 0)
                 moviVeic.idTabelaPreco = tabePrecMode.BuscarIdTabelaPreco(moviVeic.entrada);
 
+            if (moviVeic.handle > 0)
+                moviVeic.saida = dataHoraAtual;
+
             if (moviVeic.idTabelaPreco <= 0)
             {
                 ModelState.AddModelError("", string.Format("Não foi possível determinar uma tabela de preços para a movimentação. Data e Hora da movimentação {0}", moviVeic.entrada));
@@ -54,6 +58,19 @@ namespace ControleEstacionamento.Controllers
                 moviVeic.tabelaPreco = tabePrecRepo.Buscar(tabe => tabe.handle == moviVeic.idTabelaPreco).FirstOrDefault();
 
             return PartialView(moviVeic);
+        }
+
+        [HttpPost]
+        public ActionResult Gravar(MovimentacaoVeiculo moviVeic)
+        {
+            if (moviVeic.handle > 0)
+                moviVeicRepo.Atualizar(moviVeic);
+            else
+                moviVeicRepo.Adicionar(moviVeic);
+
+            moviVeicRepo.Salvar();
+
+            return RedirectToAction("Index");
         }
     }
 }

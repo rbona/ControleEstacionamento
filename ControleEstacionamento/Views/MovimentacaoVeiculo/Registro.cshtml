@@ -1,36 +1,39 @@
 ﻿@model ControleEstacionamento.Entidades.MovimentacaoVeiculo
-
+@using System.Globalization
 @{
     bool faltaConfiguracao = ViewBag.FaltaConfiguracao;
+    CultureInfo ptBr = new CultureInfo("pt-BR");
 }
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="form-horizontal">
-    <hr />
 
-    <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.placa)</dt>
-        <dd>@Html.DisplayFor(model => model.placa)</dd>
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(model => model.placa)</dt>
+    <dd>@Html.DisplayFor(model => model.placa)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.entrada)</dt>
-        <dd>@Html.DisplayFor(model => model.entrada)</dd>
+    <dt>@Html.DisplayNameFor(model => model.entrada)</dt>
+    <dd>@Html.Label(Model.entrada.ToString(ptBr),htmlAttributes: new { @style= "font-weight:normal" })</dd>
 
 
-        @if (DateTime.Compare(Model.saida, new DateTime()) != 0)
-        {
-            <dt>@Html.DisplayNameFor(model => model.saida)</dt>
-            <dd>@Html.DisplayFor(model => model.saida)</dd>
-        }
+    @if (DateTime.Compare(Model.saida, new DateTime()) != 0)
+    {
+        <dt>@Html.DisplayNameFor(model => model.saida)</dt>
+        <dd>@Html.Label(Model.saida.ToString(ptBr), htmlAttributes: new { @style = "font-weight:normal" })</dd>
+    }
 
-        @if (!faltaConfiguracao)
-        {
-            <dt>@Html.DisplayNameFor(model => model.tabelaPreco.valorHoraInicial)</dt>
-            <dd>@Html.DisplayFor(model => model.tabelaPreco.valorHoraInicial)</dd>
+    @if (!faltaConfiguracao)
+    {
+        <dt>@Html.DisplayNameFor(model => model.tabelaPreco.valorHoraInicial)</dt>
+        <dd>@Html.DisplayFor(model => model.tabelaPreco.valorHoraInicial)</dd>
 
-            <dt>@Html.DisplayNameFor(model => model.tabelaPreco.valorHoraAdicional)</dt>
-            <dd>@Html.DisplayFor(model => model.tabelaPreco.valorHoraAdicional)</dd>
-        }
-    </dl>
+        <dt>@Html.DisplayNameFor(model => model.tabelaPreco.valorHoraAdicional)</dt>
+        <dd>@Html.DisplayFor(model => model.tabelaPreco.valorHoraAdicional)</dd>
+    }
+</dl>
 
-</div>
+@Html.HiddenFor(model => model.handle)
+@Html.HiddenFor(model => model.idTabelaPreco)
+@Html.HiddenFor(model => model.placa)
+@Html.HiddenFor(model => model.saida)
+@Html.HiddenFor(model => model.entrada)

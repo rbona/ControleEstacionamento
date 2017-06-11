@@ -26,12 +26,12 @@ namespace ControleEstacionamento.Entidades
         [Vazio(ErrorMessage = "Deve ser informado a data e hora de entrada.")]
         [Display(Name = "Entrada Veículo")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public DateTime entrada { get; set; }
 
         [Display(Name = "Saída Veículo")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
         public DateTime saida { get;set; }
 
         [Display(Name = "ID Tabela Preço")]
