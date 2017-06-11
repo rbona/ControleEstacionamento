@@ -20,12 +20,17 @@
                     @Html.ValidationMessage("numeroPlaca", "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-default ce-botao-carregar form-control col-md3" onclick="CarregarFormConfirmacao();">Registrar</button>
+                    <button type="button" class="btn btn-default ce-botao-carregar form-control col-md-3" onclick="CarregarFormConfirmacao();">Registrar</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-default ce-botao-carregar form-control col-md-4" onclick="CarregarGradeVeiculosNoPatio();">Atualizar</button>
                 </div>
             </div>
         }
     </div>
 }
+
+<div id="veiculosNoPatio"></div>
 
 <div id="registro" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -57,8 +62,18 @@
     <script type="text/javascript">
         $(document).ready(function ($) {
             $("#numeroPlaca").inputmask("mask", { "mask": "aaa9999", casing: 'upper' });
+            CarregarGradeVeiculosNoPatio();
         });
 
+        function CarregarGradeVeiculosNoPatio() {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("BuscarVeiculosNoPatio", "MovimentacaoVeiculo")",
+                success: function (retorno) {
+                    $("#veiculosNoPatio").html(retorno);
+                }
+            });
+        };
         function CarregarFormConfirmacao() {
             $.ajax({
                 type: "GET",
@@ -84,9 +99,9 @@
                 },
                 success: function (retorno) {
                     $("#registro").modal("hide");
+                    CarregarGradeVeiculosNoPatio();
                 }
             });
         };
     </script>
 }
-

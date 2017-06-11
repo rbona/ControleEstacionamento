@@ -1,8 +1,10 @@
-﻿using ControleEstacionamento.DAL.Repositorios;
+﻿using ControleEstacionamento.DAL.Contexto;
+using ControleEstacionamento.DAL.Repositorios;
 using ControleEstacionamento.Entidades;
 using ControleEstacionamento.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,6 +16,7 @@ namespace ControleEstacionamento.Controllers
         private TabelaPrecosModelo tabePrecMode = new TabelaPrecosModelo();
         private TabelaPrecoRepositorio tabePrecRepo = new TabelaPrecoRepositorio();
         private MovimentacaoVeiculoRepositorio moviVeicRepo = new MovimentacaoVeiculoRepositorio();
+        private Banco db = new Banco();
 
         [HttpGet]
         // GET: MovimentacaoVeiculo
@@ -28,34 +31,33 @@ namespace ControleEstacionamento.Controllers
                 ViewBag.FaltaConfiguracao = !string.IsNullOrEmpty(mensagemErro);
             }
 
+
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult BuscarVeiculosNoPatio()
+        {
+            List<MovimentacaoVeiculo> veiculosNoPatio = moviVeicRepo.BuscarTodos().Include(movi=>movi.tabelaPreco).Where(movi => DateTime.Compare(movi.saida, new DateTime()) == 0).OrderBy(movi => movi.entrada).ToList();
+            return PartialView("VeiculosNoPatio", veiculosNoPatio);
         }
 
         [HttpGet]
         public ActionResult Registro(string numeroPlaca)
         {
             MovimentacaoVeiculoModelo moviVeicMode = new MovimentacaoVeiculoModelo();
-            MovimentacaoVeiculo moviVeic = moviVeicMode.BuscarMovimentacaoVeiculoEmAberto(numeroPlaca);
             TabelaPrecosModelo tabePrecMode = new TabelaPrecosModelo();
             ViewBag.FaltaConfiguracao = false;
 
             DateTime dataHoraAtual = DateTime.Now;
 
-            if (moviVeic == null)
-                moviVeic = new MovimentacaoVeiculo() { placa = numeroPlaca, entrada = dataHoraAtual, idTabelaPreco = tabePrecMode.BuscarIdTabelaPreco(dataHoraAtual) };
-            else if (moviVeic.idTabelaPreco <= 0)
-                moviVeic.idTabelaPreco = tabePrecMode.BuscarIdTabelaPreco(moviVeic.entrada);
-
-            if (moviVeic.handle > 0)
-                moviVeic.saida = dataHoraAtual;
+            MovimentacaoVeiculo moviVeic = moviVeicMode.CriarAtualizarMovimentacaoVeiculo(numeroPlaca, dataHoraAtual);// BuscarMovimentacaoVeiculoEmAberto(numeroPlaca);
 
             if (moviVeic.idTabelaPreco <= 0)
             {
                 ModelState.AddModelError("", string.Format("Não foi possível determinar uma tabela de preços para a movimentação. Data e Hora da movimentação {0}", moviVeic.entrada));
                 ViewBag.FaltaConfiguracao = true;
             }
-            else
-                moviVeic.tabelaPreco = tabePrecRepo.Buscar(tabe => tabe.handle == moviVeic.idTabelaPreco).FirstOrDefault();
 
             return PartialView(moviVeic);
         }
@@ -71,6 +73,18 @@ namespace ControleEstacionamento.Controllers
             moviVeicRepo.Salvar();
 
             return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                tabePrecRepo.Dispose();
+                moviVeicRepo.Dispose();
+                db.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

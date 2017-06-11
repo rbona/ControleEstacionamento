@@ -12,16 +12,6 @@
     <dt>@Html.DisplayNameFor(model => model.placa)</dt>
     <dd>@Html.DisplayFor(model => model.placa)</dd>
 
-    <dt>@Html.DisplayNameFor(model => model.entrada)</dt>
-    <dd>@Html.Label(Model.entrada.ToString(ptBr),htmlAttributes: new { @style= "font-weight:normal" })</dd>
-
-
-    @if (DateTime.Compare(Model.saida, new DateTime()) != 0)
-    {
-        <dt>@Html.DisplayNameFor(model => model.saida)</dt>
-        <dd>@Html.Label(Model.saida.ToString(ptBr), htmlAttributes: new { @style = "font-weight:normal" })</dd>
-    }
-
     @if (!faltaConfiguracao)
     {
         <dt>@Html.DisplayNameFor(model => model.tabelaPreco.valorHoraInicial)</dt>
@@ -29,7 +19,23 @@
 
         <dt>@Html.DisplayNameFor(model => model.tabelaPreco.valorHoraAdicional)</dt>
         <dd>@Html.DisplayFor(model => model.tabelaPreco.valorHoraAdicional)</dd>
+    }    
+    
+    <dt>@Html.DisplayNameFor(model => model.entrada)</dt>
+    <dd>@Html.Label(Model.entrada.ToString(ptBr),htmlAttributes: new { @style= "font-weight:normal" })</dd>
+
+    @if (DateTime.Compare(Model.saida, new DateTime()) != 0)
+    {
+        <dt>@Html.DisplayNameFor(model => model.saida)</dt>
+        <dd>@Html.Label(Model.saida.ToString(ptBr), htmlAttributes: new { @style = "font-weight:normal" })</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.tempoTotal)</dt>
+        <dd>@Html.DisplayFor(model => model.tempoTotal)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.valorTotal)</dt>
+        <dd>@Html.DisplayFor(model => model.valorTotal)</dd>
     }
+
 </dl>
 
 @Html.HiddenFor(model => model.handle)
